@@ -6,7 +6,7 @@ dotenv.config({
     path:"./env"
 })
 
-connectDataBase("mongodb://localhost:27017/")
+connectDataBase()
     .then(() => {
         app.listen(process.env.PORT || 3000, () => {
             console.log(`🌐 Server started on http://localhost:${process.env.PORT}`);

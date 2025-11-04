@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const connectDataBase = async (url) => {
+const connectDataBase = async () => {
     try {
         const connectionInstance = await mongoose
-            .connect(`${url}/dendocs`);
+            .connect(`mongodb://localhost:27017/dendocs`);
 
         console.log(`🗄️  Database connected: ${connectionInstance.connection.host}`);
     } catch (error) {
