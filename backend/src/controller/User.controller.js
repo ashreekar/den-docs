@@ -19,6 +19,7 @@ const generateAcceasTokenAndRefreshToken = async (userId) => {
 }
 
 const createUser = asyncHandler(async (req, res) => {
+    console.log(req)
     const { name, username, email, password } = req.body;
 
     if ([name, username, email, password].some(item => item?.trim() === "")) {

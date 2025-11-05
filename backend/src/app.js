@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-// import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import userRoute from "./routes/User.route.js"
 import postRoute from './routes/Post.route.js'
 
@@ -20,7 +20,7 @@ app.use(express.static("public"));
 app.use(express.json({
     limit: "16kb"
 }));
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // routes
 
