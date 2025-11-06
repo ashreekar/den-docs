@@ -68,6 +68,7 @@ function Blogs() {
                 <h2 className="text-xl font-semibold text-purple-800 mb-2">
                   {blog.title}
                 </h2>
+                <img src={`http://localhost:3000/uploads/${blog.image}`} alt="" />
                 <p className="text-gray-600 text-sm mb-3">
                   By{" "}
                   <span className="font-medium">

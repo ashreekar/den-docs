@@ -39,7 +39,7 @@ function Header() {
         {/* Navigation */}
         <nav className="flex items-center gap-8">
           <Link
-            to="/blogs"
+            to="/"
             className="text-white/90 hover:text-white font-medium transition duration-300"
           >
             Blogs
@@ -70,7 +70,7 @@ function Header() {
                 className="flex items-center gap-2 text-white/90 hover:text-white transition duration-300"
               >
                 <img
-                  src="/default-avatar.png"
+                  src={`http://localhost:3000/uploads/${user?.avatarUrl}`}
                   alt="Profile"
                   className="h-8 w-8 rounded-full border border-purple-300/50"
                 />

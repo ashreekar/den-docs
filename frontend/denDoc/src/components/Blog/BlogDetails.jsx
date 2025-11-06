@@ -65,7 +65,7 @@ function BlogDetails() {
     <div className="min-h-screen bg-white py-16 px-6">
       <div className="max-w-3xl mx-auto">
         <Link
-          to="/blogs"
+          to="/"
           className="text-purple-600 hover:text-purple-500 transition font-medium"
         >
           ← Back to Blogs
@@ -74,6 +74,7 @@ function BlogDetails() {
         <h1 className="text-4xl font-bold text-purple-800 mt-6 mb-3">
           {blog.title}
         </h1>
+        <img src={`http://localhost:3000/uploads/${blog.image}`} alt="" />
         <p className="text-gray-600 mb-8">
           By{" "}
           <span className="font-medium">

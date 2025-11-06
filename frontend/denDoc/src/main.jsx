@@ -7,6 +7,8 @@ import SignUp from './components/LoginAndSignUp/SignUp.jsx'
 import Login from './components/LoginAndSignUp/Login.jsx'
 import BlogDetails from './components/Blog/BlogDetails.jsx'
 import Blogs from './components/Blog/Blogs.jsx'
+import UserComp from './components/User/UserComp.jsx'
+import AddBlog from './components/User/AddBlog.jsx'
 
 const router=createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router=createBrowserRouter([
       {
         path:'/signup',
         element:<SignUp/>
+      },
+      {
+        path:'/user',
+        element:<UserComp/>
+      },
+      {
+        path:'/add',
+        element:<AddBlog/>
       },
     ]
   }

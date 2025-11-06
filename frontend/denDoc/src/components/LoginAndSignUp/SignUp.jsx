@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -7,16 +8,33 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [resMsg, setResMsg] = useState("");
+  const [file, setFile] = useState(null);
+
+  const navigator=useNavigate()
 
   async function SignupUser(e) {
     e.preventDefault();
+
     try {
+      // Create a FormData object for file + text data
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("password", password);
+      if (file) formData.append("file", file);
+
       const res = await axios.post(
         "http://localhost:3000/api/v1/user/signup",
-        { name, username, email, password },
-        { withCredentials: true }
+        formData,
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
+
       setResMsg(res.data.message || "Account created successfully!");
+      navigator('/')
     } catch (error) {
       setResMsg(error.response?.data?.message || "Failed to create account.");
     }
@@ -64,6 +82,13 @@ function SignUp() {
             placeholder="Password"
             name="password"
             className="rounded-lg p-3 bg-purple-50 border border-purple-300 text-gray-800 placeholder-gray-500 outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-200"
+          />
+
+          <input
+            onChange={(e) => setFile(e.target.files[0])}
+            type="file"
+            name="file"
+            className="rounded-lg p-3 bg-purple-50 border border-purple-300 text-gray-800 outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-200"
           />
 
           <button
