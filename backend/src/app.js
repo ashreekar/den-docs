@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import userRoute from "./routes/User.route.js"
 import postRoute from './routes/Post.route.js'
+import path from 'path'
 
 const app = express();
 
@@ -12,14 +13,9 @@ app.use(cors(
         credentials: true
     }
 ));
-app.use(express.urlencoded({
-    extended: true,
-    limit: "16kb"
-}));
-app.use(express.static("public"));
-app.use(express.json({
-    limit: "16kb"
-}));
+app.use(express.urlencoded());
+app.use(express.static(path.resolve("public")));
+app.use(express.json());
 app.use(cookieParser());
 
 // routes

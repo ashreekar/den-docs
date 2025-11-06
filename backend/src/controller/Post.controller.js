@@ -5,6 +5,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 
 const postApost = asyncHandler(async (req, res) => {
     const { title, body } = req.body;
+    const file=req.file.filename;
 
     if (!title || !body) {
         throw new APIError(400, "All fields must be filled");
@@ -15,6 +16,7 @@ const postApost = asyncHandler(async (req, res) => {
     const post = await Post.create({
         title,
         body,
+        image:file,
         author: user._id
     })
 
@@ -24,15 +26,21 @@ const postApost = asyncHandler(async (req, res) => {
 const getAllPosts = asyncHandler(async (req, res) => {
     const posts = await Post.find({});
 
-    res.status(200).json(new APIResponse(200,"Sucess",posts));
+    res.status(200).json(new APIResponse(200, "Sucess", posts));
 
 })
 
 const getSinglePost = asyncHandler(async (req, res) => {
     const post = await Post.findById(req?.params?.id).populate("author");
 
-    res.status(200).json(new APIResponse(200,"Sucess",post));
+    res.status(200).json(new APIResponse(200, "Sucess", post));
 
 })
 
-export { postApost,getAllPosts,getSinglePost };
+const getPostForUser=asyncHandler(async(req,res)=>{
+    const posts=await Post.find({author:req.user._id});
+    
+    res.status(200).json(new APIResponse(200,"sucess",posts));
+})
+
+export { postApost, getAllPosts, getSinglePost,getPostForUser };

@@ -19,8 +19,9 @@ const generateAcceasTokenAndRefreshToken = async (userId) => {
 }
 
 const createUser = asyncHandler(async (req, res) => {
-    console.log(req)
+    // console.log(req)
     const { name, username, email, password } = req.body;
+    const filePath=req.file.filename;
 
     if ([name, username, email, password].some(item => item?.trim() === "")) {
         throw new APIError(400, "All fields are reuired");
@@ -38,7 +39,8 @@ const createUser = asyncHandler(async (req, res) => {
         name,
         username: username.toLowerCase(),
         email,
-        password
+        password,
+        avatarUrl:filePath
     })
 
     const createdUser = {
@@ -78,16 +80,19 @@ const loginUser = asyncHandler(async (req, res) => {
         .cookie("refreshtoken", refreshTocken, options)
         .json(new APIResponse(200, {
             acceasToken,
-            refreshTocken
+            refreshTocken,
+            user
         }, "Logged in sucessfully"));
 })
 
 const logoutUser = asyncHandler(async (req, res) => {
+    console.log("Data coming")
     const user = req.user;
 
     if (!user) {
         throw new APIError(404, "User not found");
     }
+    await User.findByIdAndUpdate(req.user._id, { $unset: { refreshToken: 1 } });
 
     const options = {
         httpOnly: true,
